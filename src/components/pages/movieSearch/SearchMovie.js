@@ -1,5 +1,5 @@
 import { useLocation, useSearchParams } from 'react-router-dom';
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState} from 'react';
 import toast, { Toaster } from 'react-hot-toast';
 import { Searchbar } from './Searchbar';
 import { fetchMoviesByName } from 'components/ApiService';
@@ -11,7 +11,6 @@ const MovieSearch = () => {
   const [results, setResults] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [totalPages, setTotalPages] = useState(0);
-  const isMounted = useRef(false);
   const [searchParams, setSearchParams] = useSearchParams();
   const query = searchParams.get('query');
   const page = searchParams.get('page');
@@ -28,10 +27,7 @@ const MovieSearch = () => {
   };
 
   useEffect(() => {
-    if (!isMounted.current) {
-      isMounted.current = true;
-      return;
-    }
+    
     if (!query || query.length === 0) {
       return;
     }
