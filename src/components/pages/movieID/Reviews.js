@@ -1,6 +1,6 @@
 import { useParams } from 'react-router-dom';
 import { Circles } from 'react-loader-spinner';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import toast, { Toaster } from 'react-hot-toast';
 import { fetchReviuw } from 'components/ApiService';
 import { List } from './Reviews.styled';
@@ -9,13 +9,9 @@ const Reviews = () => {
   const { movieId } = useParams();
   const [reviews, setReviews] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
-  const isMounted = useRef(false);
 
   useEffect(() => {
-    if (!isMounted.current) {
-      isMounted.current = true;
-      return;
-    }
+    
     async function fetchData() {
       try {
         setIsLoading(true);
