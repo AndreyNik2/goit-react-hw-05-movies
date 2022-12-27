@@ -8,6 +8,10 @@ export const Link = styled(NavLink)`
   color: white;
   font-weight: 500;
 
+  :not(.active):hover{
+    border: 1px solid #ffffff;
+  }
+
   &.active {
     color: black;
     background-color: white;

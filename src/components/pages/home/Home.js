@@ -4,7 +4,7 @@ import { fetchTrendingMovies } from 'components/ApiService';
 import HomeMovieList from 'components/pages/home/HomeMovieList'
 
 
-export const Home = () => {
+const Home = () => {
   const [trendingMovies, setTrendingMovies] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [page,setPage] = useState(1)
@@ -49,3 +49,6 @@ export const Home = () => {
     </main>
   );
 };
+
+
+export default Home;

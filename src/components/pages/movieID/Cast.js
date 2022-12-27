@@ -4,6 +4,10 @@ import { useEffect, useRef, useState } from 'react';
 import toast, { Toaster } from 'react-hot-toast';
 import { fetchCast } from 'components/ApiService';
 import { urls } from 'components/config';
+import { List, ListItem, Img } from './Cast.styled';
+
+
+
 
 const Cast = () => {
   const { movieId } = useParams();
@@ -36,20 +40,20 @@ const Cast = () => {
 
   return (
     <div>
-      <ul>
+      <List>
         {cast.map(item => (
-          <li key={item.id}>
+          <ListItem key={item.id}>
             {item.profile_path && (
-              <img
+              <Img
                 src={urls.BASE_IMAGE_URL + item.profile_path}
                 alt={item.name}
               />
             )}
             <p>{item.name}</p>
             <p>Character: {item.character}</p>
-          </li>
+          </ListItem>
         ))}
-      </ul>
+      </List>
       <Circles
         height="100"
         width="100"

@@ -4,6 +4,7 @@ import toast, { Toaster } from 'react-hot-toast';
 import { Searchbar } from './Searchbar';
 import { fetchMoviesByName } from 'components/ApiService';
 import { SearchMovieList } from './SearchMovieList';
+import { StyledLink } from './SearchMovie.styled';
 
 const MovieSearch = () => {
   const location = useLocation();
@@ -14,7 +15,6 @@ const MovieSearch = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const query = searchParams.get('query');
   const page = searchParams.get('page');
-  console.log(location);
 
   const handleSubmit = event => {
     event.preventDefault();
@@ -57,7 +57,7 @@ const MovieSearch = () => {
   return (
     <main>
       <Toaster position="top-right" />
-      <button>Go back</button>
+      <StyledLink to="/">Go back</StyledLink>
       <Searchbar handleSubmit={handleSubmit} />
       <SearchMovieList isLoading={isLoading} results={results} state={{from: location}} />
       {totalPages > 1 && <button onClick={incrementPage}>Load more</button>}

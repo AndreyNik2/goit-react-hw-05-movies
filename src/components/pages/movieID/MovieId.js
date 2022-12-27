@@ -1,9 +1,11 @@
 import { Circles } from 'react-loader-spinner';
-import { useEffect, useRef, useState } from 'react';
+import { Suspense, useEffect, useRef, useState } from 'react';
 import toast, { Toaster } from 'react-hot-toast';
-import { Outlet, useParams, Link, useLocation } from 'react-router-dom';
+import { Outlet, useParams, useLocation } from 'react-router-dom';
 import { fetchMovieById } from 'components/ApiService';
 import { urls } from 'components/config';
+import { StyledLink, NLink } from './MovieId.styled';
+
 
 const MovieId = () => {
   const location = useLocation();
@@ -12,7 +14,6 @@ const MovieId = () => {
   const [movieDetails, setMovieDetails] = useState(null);
   const isMounted = useRef(false);
   const goBack = location.state?.from ?? "/";
-  console.log(location);
 
   useEffect(() => {
     if (!isMounted.current) {
@@ -58,8 +59,13 @@ const MovieId = () => {
         wrapperClass=""
         visible={Boolean(isLoading)}
       />
-      <Link to={goBack}>Go back</Link>
-      <div>
+      <StyledLink to={goBack}>Go back</StyledLink>
+      <div
+        style={{
+          width: '1200px',
+          margin: '0 auto',
+        }}
+      >
         <div>
           <img src={urls.BASE_IMAGE_URL + poster_path} alt={original_title} />
         </div>
@@ -75,14 +81,16 @@ const MovieId = () => {
         </div>
         <div>
           <h4>Aditional informational</h4>
-          <Link to="cast" state={{ from: location.state?.from && '/' }}>
+          <NLink to="cast" state={{ from: location.state?.from && '/' }}>
             Cast
-          </Link>
-          <Link to="reviews" state={{ rom: location.state?.from && '/' }}>
+          </NLink>
+          <NLink to="reviews" state={{ rom: location.state?.from && '/' }}>
             Reviews
-          </Link>
+          </NLink>
         </div>
-        <Outlet />
+        <Suspense>
+          <Outlet />
+        </Suspense>
       </div>
       <Toaster position="top-right" />
     </main>

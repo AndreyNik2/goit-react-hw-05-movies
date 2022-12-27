@@ -2,7 +2,8 @@ import { useParams } from 'react-router-dom';
 import { Circles } from 'react-loader-spinner';
 import { useEffect, useRef, useState } from 'react';
 import toast, { Toaster } from 'react-hot-toast';
-import {  fetchReviuw } from 'components/ApiService';
+import { fetchReviuw } from 'components/ApiService';
+import { List } from './Reviews.styled';
 
 const Reviews = () => {
   const { movieId } = useParams();
@@ -45,14 +46,14 @@ const Reviews = () => {
         visible={Boolean(isLoading)}
       />
       <Toaster />
-      <ul>
+      <List>
         {reviews.map(({ author, content, id }) => (
           <li key={id}>
             <p>AUTHOR: {author}</p>
             <p>{content}</p>
           </li>
         ))}
-      </ul>
+      </List>
     </div>
   );
 };
