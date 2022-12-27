@@ -1,5 +1,5 @@
 import { Circles } from 'react-loader-spinner';
-import { Suspense, useEffect, useState } from 'react';
+import { Suspense, useEffect, useRef, useState } from 'react';
 import toast, { Toaster } from 'react-hot-toast';
 import { Outlet, useParams, useLocation } from 'react-router-dom';
 import { fetchMovieById } from 'components/ApiService';
@@ -12,11 +12,14 @@ const MovieId = () => {
   const { movieId } = useParams();
   const [isLoading, setIsLoading] = useState(false);
   const [movieDetails, setMovieDetails] = useState(null);
-  
+  const isMounted = useRef(false);
   const goBack = location.state?.from ?? "/";
 
   useEffect(() => {
-    
+    if (!isMounted.current) {
+      isMounted.current = true;
+      return;
+    }
     async function fetchData() {
       try {
         setIsLoading(true);

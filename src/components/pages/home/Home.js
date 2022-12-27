@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import toast, { Toaster } from 'react-hot-toast';
 import { fetchTrendingMovies } from 'components/ApiService';
 import HomeMovieList from 'components/pages/home/HomeMovieList'
@@ -8,14 +8,17 @@ const Home = () => {
   const [trendingMovies, setTrendingMovies] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [page,setPage] = useState(1)
- 
+  const isMounted = useRef(false);
 
   const incrementPage = () => {
     setPage(prevState => prevState + 1);
   };
 
   useEffect(() => {
-    
+    if (!isMounted.current) {
+      isMounted.current = true;
+      return;
+    }
     async function fetchData() {
       try {
         setIsLoading(true);
